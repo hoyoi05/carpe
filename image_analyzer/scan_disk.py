@@ -110,7 +110,8 @@ class DiskScanner(object):
                 vss_volumes = file_system.GetVShadowVolume()
                 store_index = vshadow.VShadowPathSpecGetStoreIndex(scan_node.path_spec)
                 vss_part = list(vss_volumes.stores)[store_index]
-                length = vss_part.volume_size
+                #length = vss_part.volume_size
+                length = vss_part.size
                 identifier = getattr(vss_part, 'identifier', None)
                 vol_name = getattr(scan_node.path_spec, 'location', None)[1:]
                 base_path_spec = scan_node.path_spec

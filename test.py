@@ -14,14 +14,21 @@ def Main():
 
     argument_parser.add_argument(
         '--output_directory', '--output-directory', dest='output_dir', action='store',
-        metavar='source.hashed', default=None, help=(
+        metavar='path', default=None, help=(
             'path of the output directory.'
         )
     )
 
     argument_parser.add_argument(
-        'source', nargs='?', action='store', metavar='image.raw',
+        'source', nargs='?', action='store', metavar='image',
         default=None, help='path of the directory or storage media image.'
+    )
+
+    argument_parser.add_argument(
+        '--extract', action='store_true',
+        help=(
+            'whether extract vss image or not'
+        )
     )
 
     options = argument_parser.parse_args()
@@ -65,9 +72,10 @@ def Main():
     
     if disk_info is None:
         return False
-        
-    disk_spliter = split_disk.DiskSpliter(disk_info)
-    disk_spliter.SplitDisk(output_writer)
+    
+    if options.extract:
+        disk_spliter = split_disk.DiskSpliter(disk_info)
+        disk_spliter.SplitDisk(output_writer)
 
     return return_value
     
